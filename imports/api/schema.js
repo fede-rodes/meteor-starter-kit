@@ -12,20 +12,21 @@ export const typeDefs = [
   }
 
   type User {
+    _id: String
     emails: [Email]
     randomString: String
-    _id: String
+    name: String,
   }
 
   type Query {
-    user: User
+    curUser: User # 'curUser' refers to the 'query name' and 'User' to the returned type
   }
   `,
 ];
 
 export const resolvers = {
   Query: {
-    user(root, args, context) {
+    curUser(root, args, context) {
       /*
        * We access to the current user here thanks to the context. The current
        * user is added to the context thanks to the `meteor/apollo` package.
@@ -33,6 +34,7 @@ export const resolvers = {
       return context.user;
     },
   },
+  // What's this for?
   User: {
     emails: ({ emails }) => emails,
     randomString: () => Random.id(),
