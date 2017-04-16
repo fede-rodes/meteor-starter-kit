@@ -1,4 +1,18 @@
 import React from 'react';
+
+/*
+* If you are relying on the current user in your queries, you’ll want to clear
+* the store when the current user state changes. To do so, use
+* client.resetStore() in the Meteor.logout callback:
+*
+* Meteor.logout(function() {
+*   return client.resetStore(); // make all active queries re-run when the log-out process completed
+* });
+*
+* The `client` variable refers to your `ApolloClient` instance. It would be
+* imported in your template, or passed via props thanks to `withApollo` in React
+* for example.
+*/
 import { withApollo } from 'react-apollo';
 import { Accounts } from 'meteor/std:accounts-ui';
 
