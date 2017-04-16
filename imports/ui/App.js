@@ -7,27 +7,45 @@ import Header from './Header';
 import Loading from './Loading';
 import LoginForm from './LoginForm';
 
-const App = ({ curUser, refetch, userLoading }) => (
-  <div className="App">
+/*
+data = {
+  curUser: Object
+  error: (...)
+  fetchMore: function ()
+  loading: false
+  networkStatus: 7
+  refetch: function ()
+  startPolling: function ()
+  stopPolling: function ()
+  subscribeToMore: function ()
+  updateQuery: function ()
+  variables: Object
+}
+*/
+const App = ({ data }) => {
+  const { error, loading, curUser, refetch } = data;
+  // console.log('data', data);
 
-    <Header />
+  if (loading) return <Loading />;
+  if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>;
 
-    <div className="App-block">
-      {userLoading
-        ? <Loading />
-        : <div className="App-content">
-            <LoginForm />
-            {curUser
-              ? <div>
-                  <pre>{JSON.stringify(curUser, null, 2)}</pre>
-                  <button onClick={() => refetch()}>Refetch the query!</button>
-                </div>
-              : 'Please log in!'}
-          </div>}
+  return (
+    <div className="App">
+      <Header />
+      <div className="App-block">
+        <div className="App-content">
+          <LoginForm />
+          {curUser
+            ? <div>
+                <pre>{JSON.stringify(curUser, null, 2)}</pre>
+                <button onClick={() => refetch()}>Refetch the query!</button>
+              </div>
+            : 'Please log in!'}
+        </div>
+      </div>
     </div>
-
-  </div>
-);
+  );
+};
 
 App.propTypes = {
   curUser: PropTypes.object,
@@ -62,21 +80,6 @@ const GET_CUR_USER_DATA = gql`
  * making mutations. It is a React Higher Order Component, and interacts with
  * the wrapped component via props.
  */
-const withData = graphql(
-  GET_CUR_USER_DATA,
-  { options: { notifyOnNetworkStatusChange: true }, // },
-  // {
-    // Destructure the default props to more explicit ones
-    props: ({ data: { error, loading, curUser, refetch } }) => {
-      if (loading) return { userLoading: true };
-      if (error) return { hasErrors: true };
-
-      return {
-        curUser,
-        refetch,
-      };
-    },
-  }
-);
+const withData = graphql(GET_CUR_USER_DATA, { options: { notifyOnNetworkStatusChange: true } });
 
 export default withData(App);
