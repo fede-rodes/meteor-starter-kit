@@ -1,25 +1,26 @@
 // import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 
-// Checking that typeDefs and resolver are only necessary server side
+// Checking that typeDefs and resolver are only necessary/used server side for
+// the express server configuration.
 // if (Meteor.isServer) {
 export const typeDefs = [
   `
-type Email {
-  address: String
-  verified: Boolean
-}
+  type Email {
+    address: String
+    verified: Boolean
+  }
 
-type User {
-  emails: [Email]
-  randomString: String
-  _id: String
-}
+  type User {
+    emails: [Email]
+    randomString: String
+    _id: String
+  }
 
-type Query {
-  user: User
-}
-`,
+  type Query {
+    user: User
+  }
+  `,
 ];
 
 export const resolvers = {
