@@ -10,13 +10,25 @@ const graphQLSchema = makeExecutableSchema({
 
 /*
 * createApolloServer is used to create and configure an Express GraphQL server
-* integrated with of meteor. Assuming you want to run the Apollo Server inside a
-* Meteor instance, you will want to bind the Express server to Meteor like
-* 'this'. That way, there is no CORS issue -- your Express routes are integrated
-* into Meteor and you can navigate to your GraphQL endpoint/GraphiQL path just
-* like any other page in your application!
+* inside a meteor instance. That way, there is no CORS issue -- your Express
+* routes are integrated into Meteor and you can navigate to your GraphQL
+* endpoint/GraphiQL path just like any other page in your application; for
+* instance: http://localhost:3000/graphiql
 * createApolloServer(customOptions = {}, customConfig = {})
 * see: http://dev.apollodata.com/core/meteor.html#createApolloServer
+* See: https://github.com/apollographql/meteor-integration/blob/master/src/main-server.js
+*/
+
+/*
+* customOptions is an object that can have any GraphQL Server options
+* (http://dev.apollodata.com/tools/graphql-server/setup.html#graphqlOptions)
+* used to enhance the GraphQL server run thanks to graphqlExpress.
+*
+* Defining a customOptions object extends or replaces fields of the default configuration provided by the package:
+*
+*   context: {}, ensure that a context object is defined for the resolvers.
+*   formatError: a function used to format errors before returning them to clients.
+*   debug: Meteor.isDevelopment, additional debug logging if execution errors occur in dev mode.
 */
 const customOptions = {
   schema: graphQLSchema,
@@ -40,10 +52,22 @@ const customOptions = {
   // a boolean option that will trigger additional debug logging if execution errors occur
   // debug?: boolean
 };
-/* const customConfig = {
-  configServer: expressServer => expressServer.use((req, res, next) => {
-    // do something there manually or use an express middleware instead of this custom function
-  }),
-}; */
 
-createApolloServer(customOptions);
+/*
+* customConfig is an optional object that can be used to replace the configuration of how the Express server itself runs:
+*
+*   path: path of the GraphQL server. This is the endpoint where the queries & mutations are sent. Default: /graphql.
+*   configServer: a function that is given to the express server for further configuration. You can for instance enable CORS with createApolloServer({}, {configServer: expressServer => expressServer.use(cors())})
+*   graphiql: whether to enable GraphiQL. Default: true in development and false in production.
+*   graphiqlPath: path for GraphiQL. Default: /graphiql (note the i).
+*   graphiqlOptions: GraphiQL options Default: attempts to use Meteor.loginToken from localStorage to log you in.
+*
+* It will use the same port as your Meteor server. Don’t put a route or static asset at the same path as the GraphQL route or the GraphiQL route if in use (again, defaults are /graphql and /graphiql respectively).
+*/
+const customConfig = {
+  /* configServer: expressServer => expressServer.use((req, res, next) => {
+    // do something there manually or use an express middleware instead of this custom function
+  }), */
+};
+
+createApolloServer(customOptions, customConfig);

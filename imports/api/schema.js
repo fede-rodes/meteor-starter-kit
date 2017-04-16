@@ -1,5 +1,8 @@
+// import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 
+// Checking that typeDefs and resolver are only necessary server side
+// if (Meteor.isServer) {
 export const typeDefs = [
   `
 type Email {
@@ -34,3 +37,4 @@ export const resolvers = {
     randomString: () => Random.id(),
   },
 };
+// }
