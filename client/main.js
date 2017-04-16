@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import { render } from 'react-dom';
+
 import React from 'react';
+import { render } from 'react-dom';
 
 // ApolloClient serves as a central store of query result data which caches and
 // distributes the results of our queries.
@@ -13,7 +14,7 @@ import { meteorClientConfig } from 'meteor/apollo';
 // if you’re using React Router.
 import { ApolloProvider } from 'react-apollo';
 
-import App from '/imports/ui/App';
+import App from '../imports/ui/App';
 
 // To get started, create an ApolloClient instance and point it at your GraphQL
 // server (handled in our case by meteor-apollo). By default, this client will

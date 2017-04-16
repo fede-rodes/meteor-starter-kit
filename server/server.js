@@ -3,6 +3,21 @@ import { makeExecutableSchema } from 'graphql-tools';
 
 import { typeDefs, resolvers } from '/imports/api/schema.js';
 
+/*
+// For the future (see: https://github.com/apollographql/GitHunt-API/blob/master/api/schema.js):
+// Put schema together into one array of schema strings
+// and one map of resolvers, like makeExecutableSchema expects
+
+const schema = [...rootSchema, ...gitHubSchema, ...sqlSchema];
+const resolvers = merge(rootResolvers, gitHubResolvers, sqlResolvers);
+
+const executableSchema = makeExecutableSchema({
+  typeDefs: schema,
+  resolvers,
+});
+*/
+
+
 const graphQLSchema = makeExecutableSchema({
   typeDefs,
   resolvers,
