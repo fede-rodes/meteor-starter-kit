@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
+
 // Integration with google analytics. See: https://github.com/apollographql/GitHunt-React/blob/master/ui/client.js
 // import * as ReactGA from 'react-ga';
 
@@ -19,7 +20,7 @@ function logPageView() {
 */
 
 const App = () => (
-  <Router history={history} /*onUpdate={logPageView} */>
+  <Router history={history} /* onUpdate={logPageView} */>
     <Routes />
   </Router>
 );

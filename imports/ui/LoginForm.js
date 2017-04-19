@@ -34,4 +34,11 @@ const LoginForm = props => (
   />
 );
 
+/*
+* If you are wondering when to use withApollo() and when to use graphql() the
+* answer is that most of the time you will want to use graphql(). graphql()
+* provides many of the advanced features you need to work with your GraphQL
+* data. You should only use withApollo() if you want the GraphQL client without
+* any of the other features.
+*/
 export default withApollo(LoginForm);
