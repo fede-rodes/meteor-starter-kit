@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 
 import React from 'react';
 import { render } from 'react-dom';
+// For redux integration see http://dev.apollodata.com/react/redux.html
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 // import { todoReducer, userReducer } from './reducers';
 
